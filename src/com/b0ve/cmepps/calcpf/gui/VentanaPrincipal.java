@@ -1,6 +1,7 @@
 package com.b0ve.cmepps.calcpf.gui;
 
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaListaElementos;
+import com.b0ve.cmepps.calcpf.gui.elementos.VentanaPFNA;
 import static com.b0ve.cmepps.calcpf.helpers.PFHelper.openFrame;
 import com.b0ve.cmepps.calcpf.modelo.Estimacion;
 
@@ -25,6 +26,7 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         menuItemSalir = new javax.swing.JMenuItem();
         menuElementosFuncionales = new javax.swing.JMenu();
         menuItemListaElementos = new javax.swing.JMenuItem();
+        menuItemPFNA = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CalcPF");
@@ -64,6 +66,14 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         menuElementosFuncionales.add(menuItemListaElementos);
+
+        menuItemPFNA.setText("PFNA");
+        menuItemPFNA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPFNAActionPerformed(evt);
+            }
+        });
+        menuElementosFuncionales.add(menuItemPFNA);
 
         menubar.add(menuElementosFuncionales);
 
@@ -108,6 +118,10 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         openFrame(new VentanaListaElementos(estimacion.getElementosFuncionales()));
     }//GEN-LAST:event_menuItemListaElementosActionPerformed
 
+    private void menuItemPFNAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPFNAActionPerformed
+        openFrame(new VentanaPFNA(estimacion.getElementosFuncionales()));
+    }//GEN-LAST:event_menuItemPFNAActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -115,6 +129,7 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuElementosFuncionales;
     private javax.swing.JMenuItem menuItemCerrar;
     private javax.swing.JMenuItem menuItemListaElementos;
+    private javax.swing.JMenuItem menuItemPFNA;
     private javax.swing.JMenuItem menuItemSalir;
     private javax.swing.JMenuBar menubar;
     // End of variables declaration//GEN-END:variables
