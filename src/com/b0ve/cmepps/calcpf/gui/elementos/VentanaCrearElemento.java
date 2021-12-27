@@ -1,6 +1,7 @@
 package com.b0ve.cmepps.calcpf.gui.elementos;
 
 import com.b0ve.cmepps.calcpf.enums.TipoElemento;
+import com.b0ve.cmepps.calcpf.gui.models.ElementosTableModel;
 import com.b0ve.cmepps.calcpf.modelo.elementos.ElementoFuncional;
 import com.b0ve.cmepps.calcpf.modelo.elementos.tipos.ConsultaExterna;
 import com.b0ve.cmepps.calcpf.modelo.elementos.tipos.EntradaExterna;
@@ -12,15 +13,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class VentanaCrearElemento extends javax.swing.JFrame {
 
-    private final List<ElementoFuncional> lista;
+    private final ElementosTableModel model;
 
-    public VentanaCrearElemento(List<ElementoFuncional> lista) {
-        this.lista = lista;
+    public VentanaCrearElemento(ElementosTableModel model) {
+        this.model = model;
         initComponents();
         actualizarTipo();
         actualizarComplejidad();
@@ -249,7 +249,7 @@ public class VentanaCrearElemento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        lista.add(generarElemento());
+        model.add(generarElemento());
         dispose();
     }//GEN-LAST:event_btnCrearActionPerformed
 
