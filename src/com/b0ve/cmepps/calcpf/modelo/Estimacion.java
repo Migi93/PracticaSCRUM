@@ -43,6 +43,18 @@ public class Estimacion implements Serializable {
         return elementosFuncionales.stream().mapToInt(e -> ponderacion.get(e.getTipo()).get(e.getComplegidad())).sum();
     }
 
+    public double getFA() {
+        return tablaInfluencias.getFA();
+    }
+
+    public int getSVA() {
+        return tablaInfluencias.getSVA();
+    }
+
+    public double getPFA() {
+        return getPFNA() * tablaInfluencias.getFA();
+    }
+
     public static Map<TipoElemento, Map<Complejidad, Integer>> getPonderacion() {
         return ponderacion;
     }
