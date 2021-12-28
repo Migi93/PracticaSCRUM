@@ -1,5 +1,6 @@
 package com.b0ve.cmepps.calcpf.gui;
 
+import com.b0ve.cmepps.calcpf.gui.ajuste.VentanaCaracteristicas;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaListaElementos;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaPFNA;
 import static com.b0ve.cmepps.calcpf.helpers.PFHelper.openFrame;
@@ -27,6 +28,8 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         menuElementosFuncionales = new javax.swing.JMenu();
         menuItemListaElementos = new javax.swing.JMenuItem();
         menuItemPFNA = new javax.swing.JMenuItem();
+        menuFactorCorreccion = new javax.swing.JMenu();
+        menuItemCaracteristicas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CalcPF");
@@ -77,6 +80,18 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
 
         menubar.add(menuElementosFuncionales);
 
+        menuFactorCorreccion.setText("Factor de corrección");
+
+        menuItemCaracteristicas.setText("Características");
+        menuItemCaracteristicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCaracteristicasActionPerformed(evt);
+            }
+        });
+        menuFactorCorreccion.add(menuItemCaracteristicas);
+
+        menubar.add(menuFactorCorreccion);
+
         setJMenuBar(menubar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,11 +137,17 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         openFrame(new VentanaPFNA(estimacion.getElementosFuncionales()));
     }//GEN-LAST:event_menuItemPFNAActionPerformed
 
+    private void menuItemCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCaracteristicasActionPerformed
+        openFrame(new VentanaCaracteristicas(estimacion.getTablaInfluencias()));
+    }//GEN-LAST:event_menuItemCaracteristicasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuElementosFuncionales;
+    private javax.swing.JMenu menuFactorCorreccion;
+    private javax.swing.JMenuItem menuItemCaracteristicas;
     private javax.swing.JMenuItem menuItemCerrar;
     private javax.swing.JMenuItem menuItemListaElementos;
     private javax.swing.JMenuItem menuItemPFNA;

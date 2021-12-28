@@ -5,6 +5,7 @@ import static com.b0ve.cmepps.calcpf.enums.Complejidad.*;
 import com.b0ve.cmepps.calcpf.enums.TipoElemento;
 import static com.b0ve.cmepps.calcpf.enums.TipoElemento.*;
 import com.b0ve.cmepps.calcpf.modelo.elementos.ElementoFuncional;
+import com.b0ve.cmepps.calcpf.modelo.influencias.TablaInfluencias;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +24,19 @@ public class Estimacion implements Serializable {
     }).collect(Collectors.toMap(data -> (TipoElemento) data[0], data -> (Map<Complejidad, Integer>) data[1]));
 
     private final List<ElementoFuncional> elementosFuncionales;
+    private final TablaInfluencias tablaInfluencias;
 
     public Estimacion() {
         elementosFuncionales = new ArrayList<>();
+        tablaInfluencias = new TablaInfluencias();
     }
 
     public List<ElementoFuncional> getElementosFuncionales() {
         return elementosFuncionales;
+    }
+
+    public TablaInfluencias getTablaInfluencias() {
+        return tablaInfluencias;
     }
 
     public int getPFNA() {
