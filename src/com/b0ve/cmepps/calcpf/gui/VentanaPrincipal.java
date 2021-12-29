@@ -4,6 +4,7 @@ import com.b0ve.cmepps.calcpf.gui.ajuste.VentanaCaracteristicas;
 import com.b0ve.cmepps.calcpf.gui.ajuste.VentanaPFA;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaListaElementos;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaPFNA;
+import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaCategoriaISBSG;
 import static com.b0ve.cmepps.calcpf.helpers.PFHelper.openFrame;
 import com.b0ve.cmepps.calcpf.modelo.Estimacion;
 
@@ -32,6 +33,8 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         menuFactorCorreccion = new javax.swing.JMenu();
         menuItemCaracteristicas = new javax.swing.JMenuItem();
         menuItemPFA = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemCategoria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CalcPF");
@@ -102,6 +105,18 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
 
         menubar.add(menuFactorCorreccion);
 
+        jMenu1.setText("Estimación");
+
+        menuItemCategoria.setText("Seleccionar categoria");
+        menuItemCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCategoriaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemCategoria);
+
+        menubar.add(jMenu1);
+
         setJMenuBar(menubar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,13 +124,10 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(222, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 278, Short.MAX_VALUE)
-                        .addComponent(jLabel7)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,13 +167,19 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         openFrame(new VentanaPFA(estimacion));
     }//GEN-LAST:event_menuItemPFAActionPerformed
 
+    private void menuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCategoriaActionPerformed
+        openFrame(new VentanaCategoriaISBSG(estimacion));
+    }//GEN-LAST:event_menuItemCategoriaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuElementosFuncionales;
     private javax.swing.JMenu menuFactorCorreccion;
     private javax.swing.JMenuItem menuItemCaracteristicas;
+    private javax.swing.JMenuItem menuItemCategoria;
     private javax.swing.JMenuItem menuItemCerrar;
     private javax.swing.JMenuItem menuItemListaElementos;
     private javax.swing.JMenuItem menuItemPFA;

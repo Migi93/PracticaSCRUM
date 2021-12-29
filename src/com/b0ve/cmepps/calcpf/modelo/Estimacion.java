@@ -5,6 +5,7 @@ import static com.b0ve.cmepps.calcpf.enums.Complejidad.*;
 import com.b0ve.cmepps.calcpf.enums.TipoElemento;
 import static com.b0ve.cmepps.calcpf.enums.TipoElemento.*;
 import com.b0ve.cmepps.calcpf.modelo.elementos.ElementoFuncional;
+import com.b0ve.cmepps.calcpf.modelo.estimacion.ISBSG;
 import com.b0ve.cmepps.calcpf.modelo.influencias.TablaInfluencias;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,10 +26,12 @@ public class Estimacion implements Serializable {
 
     private final List<ElementoFuncional> elementosFuncionales;
     private final TablaInfluencias tablaInfluencias;
+    private final ISBSG isbsg;
 
     public Estimacion() {
         elementosFuncionales = new ArrayList<>();
         tablaInfluencias = new TablaInfluencias();
+        isbsg = new ISBSG();
     }
 
     public List<ElementoFuncional> getElementosFuncionales() {
@@ -37,6 +40,10 @@ public class Estimacion implements Serializable {
 
     public TablaInfluencias getTablaInfluencias() {
         return tablaInfluencias;
+    }
+
+    public ISBSG getISBSG() {
+        return isbsg;
     }
 
     public int getPFNA() {
@@ -53,6 +60,14 @@ public class Estimacion implements Serializable {
 
     public double getPFA() {
         return getPFNA() * tablaInfluencias.getFA();
+    }
+
+    public double getEsfuerzo() {
+        return isbsg.getCategoriaEsfuerzo().calcular(getPFA());
+    }
+
+    public double getDuracion() {
+        return isbsg.getCategoriaDuracion().calcular(getPFA());
     }
 
     public static Map<TipoElemento, Map<Complejidad, Integer>> getPonderacion() {
