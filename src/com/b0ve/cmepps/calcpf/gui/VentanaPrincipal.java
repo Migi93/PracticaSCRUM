@@ -5,6 +5,7 @@ import com.b0ve.cmepps.calcpf.gui.ajuste.VentanaPFA;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaListaElementos;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaPFNA;
 import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaCategoriaISBSG;
+import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaEstimacionISBSG;
 import static com.b0ve.cmepps.calcpf.helpers.PFHelper.openFrame;
 import com.b0ve.cmepps.calcpf.modelo.Estimacion;
 
@@ -25,6 +26,7 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         menubar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
+        menuItemConfigurar = new javax.swing.JMenuItem();
         menuItemCerrar = new javax.swing.JMenuItem();
         menuItemSalir = new javax.swing.JMenuItem();
         menuElementosFuncionales = new javax.swing.JMenu();
@@ -35,6 +37,7 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         menuItemPFA = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuItemCategoria = new javax.swing.JMenuItem();
+        menuItemEstimacion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CalcPF");
@@ -46,6 +49,14 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/b0ve/cmepps/calcpf/src/bg.jpg"))); // NOI18N
 
         menuArchivo.setText("Archivo");
+
+        menuItemConfigurar.setText("Configurar");
+        menuItemConfigurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemConfigurarActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemConfigurar);
 
         menuItemCerrar.setText("Cerrar");
         menuItemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +126,14 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(menuItemCategoria);
 
+        menuItemEstimacion.setText("Estimación");
+        menuItemEstimacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEstimacionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemEstimacion);
+
         menubar.add(jMenu1);
 
         setJMenuBar(menubar);
@@ -124,10 +143,13 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 278, Short.MAX_VALUE)
+                        .addComponent(jLabel7)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,9 +189,17 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         openFrame(new VentanaPFA(estimacion));
     }//GEN-LAST:event_menuItemPFAActionPerformed
 
+    private void menuItemConfigurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConfigurarActionPerformed
+        openFrame(new VentanaConfiguracion(estimacion));
+    }//GEN-LAST:event_menuItemConfigurarActionPerformed
+
     private void menuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCategoriaActionPerformed
         openFrame(new VentanaCategoriaISBSG(estimacion));
     }//GEN-LAST:event_menuItemCategoriaActionPerformed
+
+    private void menuItemEstimacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEstimacionActionPerformed
+        openFrame(new VentanaEstimacionISBSG(estimacion));
+    }//GEN-LAST:event_menuItemEstimacionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel5;
@@ -181,6 +211,8 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemCaracteristicas;
     private javax.swing.JMenuItem menuItemCategoria;
     private javax.swing.JMenuItem menuItemCerrar;
+    private javax.swing.JMenuItem menuItemConfigurar;
+    private javax.swing.JMenuItem menuItemEstimacion;
     private javax.swing.JMenuItem menuItemListaElementos;
     private javax.swing.JMenuItem menuItemPFA;
     private javax.swing.JMenuItem menuItemPFNA;

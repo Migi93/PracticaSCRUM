@@ -24,6 +24,7 @@ public class Estimacion implements Serializable {
         {FLE, Stream.of(new Object[][]{{SIMPLE, 5}, {MEDIA, 7}, {COMPLEJA, 10}}).collect(Collectors.toMap(data -> (Complejidad) data[0], data -> (Integer) data[1]))}
     }).collect(Collectors.toMap(data -> (TipoElemento) data[0], data -> (Map<Complejidad, Integer>) data[1]));
 
+    private double costeTrabajadorPorHora;
     private final List<ElementoFuncional> elementosFuncionales;
     private final TablaInfluencias tablaInfluencias;
     private final ISBSG isbsg;
@@ -40,6 +41,14 @@ public class Estimacion implements Serializable {
 
     public TablaInfluencias getTablaInfluencias() {
         return tablaInfluencias;
+    }
+
+    public void setCosteTrabajadorPorHora(double costeTrabajadorPorHora) {
+        this.costeTrabajadorPorHora = costeTrabajadorPorHora;
+    }
+
+    public double getCosteTrabajadorPorHora() {
+        return costeTrabajadorPorHora;
     }
 
     public ISBSG getISBSG() {
@@ -68,6 +77,22 @@ public class Estimacion implements Serializable {
 
     public double getDuracion() {
         return isbsg.getCategoriaDuracion().calcular(getPFA());
+    }
+
+    public double getCandidadDePersonas() {
+        return getEsfuerzo() / (getDuracion() * 20D * 8D);
+    }
+
+    public double getCoste() {
+        return getEsfuerzo() * costeTrabajadorPorHora;
+    }
+
+    public double getProductividad() {
+        return getEsfuerzo() / getPFA();
+    }
+
+    public double getVelocidadDeEntrega() {
+        return getPFA() / getDuracion();
     }
 
     public static Map<TipoElemento, Map<Complejidad, Integer>> getPonderacion() {
