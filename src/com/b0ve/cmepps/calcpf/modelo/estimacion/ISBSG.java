@@ -1,6 +1,9 @@
 package com.b0ve.cmepps.calcpf.modelo.estimacion;
 
-public class ISBSG {
+import com.b0ve.cmepps.calcpf.modelo.Actualizable;
+import java.io.Serializable;
+
+public class ISBSG implements Serializable {
 
     private static final CategoriaISBSG[] CATEGORIAS_ESFUERZO = {
         new CategoriaISBSG("MF", 49.02, 0.736),
@@ -36,6 +39,7 @@ public class ISBSG {
     };
 
     private CategoriaISBSG categoriaEsfuerzo, categoriaDuracion;
+    private transient Actualizable actualizable;
 
     public ISBSG() {
         categoriaEsfuerzo = CATEGORIAS_ESFUERZO[0];
@@ -60,10 +64,16 @@ public class ISBSG {
 
     public void setCategoriaEsfuerzo(CategoriaISBSG categoriaEsfuerzo) {
         this.categoriaEsfuerzo = categoriaEsfuerzo;
+        actualizable.actualizar();
     }
 
     public void setCategoriaDuracion(CategoriaISBSG categoriaDuracion) {
         this.categoriaDuracion = categoriaDuracion;
+        actualizable.actualizar();
+    }
+
+    public void setActualizable(Actualizable actualizable) {
+        this.actualizable = actualizable;
     }
 
 }

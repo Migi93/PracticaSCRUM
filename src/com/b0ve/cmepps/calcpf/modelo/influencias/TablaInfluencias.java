@@ -1,8 +1,10 @@
 package com.b0ve.cmepps.calcpf.modelo.influencias;
 
+import com.b0ve.cmepps.calcpf.modelo.Actualizable;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class TablaInfluencias {
+public class TablaInfluencias implements Serializable {
 
     private static final String[] consideraciones = {"Comunicación de datos",
         "Funciones distribuidas",
@@ -24,6 +26,7 @@ public class TablaInfluencias {
     }
 
     private final int[] valores;
+    private transient Actualizable actualizable;
 
     public TablaInfluencias() {
         valores = new int[14];
@@ -32,6 +35,9 @@ public class TablaInfluencias {
     public void setValor(int i, int valor) {
         if (valor >= 0 && valor <= 5) {
             valores[i] = valor;
+            if (actualizable != null) {
+                actualizable.actualizar();
+            }
         }
     }
 
@@ -45,5 +51,9 @@ public class TablaInfluencias {
 
     public int getSVA() {
         return Arrays.stream(valores).sum();
+    }
+
+    public void setActualizable(Actualizable act) {
+        actualizable = act;
     }
 }

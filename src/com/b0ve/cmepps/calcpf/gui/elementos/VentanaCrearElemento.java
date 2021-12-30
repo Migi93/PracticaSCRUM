@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 
 public class VentanaCrearElemento extends javax.swing.JFrame {
 
-    private final ElementosTableModel model;
+    private final ElementosTableModel modelo;
 
-    public VentanaCrearElemento(ElementosTableModel model) {
-        this.model = model;
+    public VentanaCrearElemento(ElementosTableModel modelo) {
+        this.modelo = modelo;
         initComponents();
         actualizarTipo();
         actualizarComplejidad();
@@ -249,7 +249,7 @@ public class VentanaCrearElemento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        model.add(generarElemento());
+        modelo.add(generarElemento());
         dispose();
     }//GEN-LAST:event_btnCrearActionPerformed
 

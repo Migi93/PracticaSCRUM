@@ -8,7 +8,6 @@ import com.b0ve.cmepps.calcpf.modelo.elementos.ElementoFuncional;
 import com.b0ve.cmepps.calcpf.modelo.estimacion.ISBSG;
 import com.b0ve.cmepps.calcpf.modelo.influencias.TablaInfluencias;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,14 +24,26 @@ public class Estimacion implements Serializable {
     }).collect(Collectors.toMap(data -> (TipoElemento) data[0], data -> (Map<Complejidad, Integer>) data[1]));
 
     private double costeTrabajadorPorHora;
-    private final List<ElementoFuncional> elementosFuncionales;
+    private transient Actualizable actualizable;
+    private final SerializableObservableListWrapper<ElementoFuncional> elementosFuncionales;
     private final TablaInfluencias tablaInfluencias;
     private final ISBSG isbsg;
 
     public Estimacion() {
-        elementosFuncionales = new ArrayList<>();
+        elementosFuncionales = new SerializableObservableListWrapper<>();
         tablaInfluencias = new TablaInfluencias();
         isbsg = new ISBSG();
+    }
+
+    public void setCosteTrabajadorPorHora(double costeTrabajadorPorHora) {
+        this.costeTrabajadorPorHora = costeTrabajadorPorHora;
+        if (actualizable != null) {
+            actualizable.actualizar();
+        }
+    }
+
+    public double getCosteTrabajadorPorHora() {
+        return costeTrabajadorPorHora;
     }
 
     public List<ElementoFuncional> getElementosFuncionales() {
@@ -41,14 +52,6 @@ public class Estimacion implements Serializable {
 
     public TablaInfluencias getTablaInfluencias() {
         return tablaInfluencias;
-    }
-
-    public void setCosteTrabajadorPorHora(double costeTrabajadorPorHora) {
-        this.costeTrabajadorPorHora = costeTrabajadorPorHora;
-    }
-
-    public double getCosteTrabajadorPorHora() {
-        return costeTrabajadorPorHora;
     }
 
     public ISBSG getISBSG() {
@@ -97,6 +100,18 @@ public class Estimacion implements Serializable {
 
     public static Map<TipoElemento, Map<Complejidad, Integer>> getPonderacion() {
         return ponderacion;
+    }
+
+    public void setActualizable(Actualizable act) {
+        actualizable = act;
+        elementosFuncionales.setActualizable(act);
+        tablaInfluencias.setActualizable(act);
+        isbsg.setActualizable(act);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("<html><h2>CalcPF</h2><h3>PFNA %d</h3><h3>FA %.2f</h3><h3>PFA %.2f</h3><h3>Esfuerzo %.2f horas</h3><h3>Duración %.2f horas</h3></html>", getPFNA(), getFA(), getPFA(), getEsfuerzo(), getDuracion() * 20D * 8D);
     }
 
 }

@@ -7,15 +7,18 @@ import com.b0ve.cmepps.calcpf.gui.elementos.VentanaPFNA;
 import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaCategoriaISBSG;
 import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaEstimacionISBSG;
 import static com.b0ve.cmepps.calcpf.helpers.PFHelper.openFrame;
+import com.b0ve.cmepps.calcpf.modelo.Actualizable;
 import com.b0ve.cmepps.calcpf.modelo.Estimacion;
 
-public final class VentanaPrincipal extends javax.swing.JFrame {
+public final class VentanaPrincipal extends javax.swing.JFrame implements Actualizable {
 
     private Estimacion estimacion;
 
     public VentanaPrincipal() {
         estimacion = new Estimacion();
+        estimacion.setActualizable(this);
         initComponents();
+        actualizar();
     }
 
     @SuppressWarnings("unchecked")
@@ -24,6 +27,7 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        labelEstadistica = new javax.swing.JLabel();
         menubar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         menuItemConfigurar = new javax.swing.JMenuItem();
@@ -47,6 +51,8 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         jLabel5.setText("CalcPF CMEPPS UHU 2022");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/b0ve/cmepps/calcpf/src/bg.jpg"))); // NOI18N
+
+        labelEstadistica.setText("jLabel8");
 
         menuArchivo.setText("Archivo");
 
@@ -148,7 +154,9 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 278, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)
+                        .addComponent(labelEstadistica, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel7)))
                 .addContainerGap())
         );
@@ -156,7 +164,9 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(labelEstadistica, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -167,6 +177,8 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCerrarActionPerformed
         estimacion = new Estimacion();
+        estimacion.setActualizable(this);
+        actualizar();
     }//GEN-LAST:event_menuItemCerrarActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
@@ -201,10 +213,16 @@ public final class VentanaPrincipal extends javax.swing.JFrame {
         openFrame(new VentanaEstimacionISBSG(estimacion));
     }//GEN-LAST:event_menuItemEstimacionActionPerformed
 
+    @Override
+    public void actualizar() {
+        labelEstadistica.setText(estimacion.toString());
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JLabel labelEstadistica;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuElementosFuncionales;
     private javax.swing.JMenu menuFactorCorreccion;
