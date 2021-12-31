@@ -6,9 +6,16 @@ import com.b0ve.cmepps.calcpf.gui.elementos.VentanaListaElementos;
 import com.b0ve.cmepps.calcpf.gui.elementos.VentanaPFNA;
 import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaCategoriaISBSG;
 import com.b0ve.cmepps.calcpf.gui.estimacion.VentanaEstimacionISBSG;
+import com.b0ve.cmepps.calcpf.helpers.PFHelper;
 import static com.b0ve.cmepps.calcpf.helpers.PFHelper.openFrame;
 import com.b0ve.cmepps.calcpf.modelo.Actualizable;
 import com.b0ve.cmepps.calcpf.modelo.Estimacion;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class VentanaPrincipal extends javax.swing.JFrame implements Actualizable {
 
@@ -31,6 +38,8 @@ public final class VentanaPrincipal extends javax.swing.JFrame implements Actual
         menubar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         menuItemConfigurar = new javax.swing.JMenuItem();
+        menuItemAbrir = new javax.swing.JMenuItem();
+        menuItemGuardar = new javax.swing.JMenuItem();
         menuItemCerrar = new javax.swing.JMenuItem();
         menuItemSalir = new javax.swing.JMenuItem();
         menuElementosFuncionales = new javax.swing.JMenu();
@@ -63,6 +72,22 @@ public final class VentanaPrincipal extends javax.swing.JFrame implements Actual
             }
         });
         menuArchivo.add(menuItemConfigurar);
+
+        menuItemAbrir.setText("Abrir");
+        menuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAbrirActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemAbrir);
+
+        menuItemGuardar.setText("Guardar");
+        menuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGuardarActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemGuardar);
 
         menuItemCerrar.setText("Cerrar");
         menuItemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +200,43 @@ public final class VentanaPrincipal extends javax.swing.JFrame implements Actual
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void menuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAbrirActionPerformed
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("CalcPF", "cfp");
+            fileChooser.setFileFilter(filter);
+            fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+            fileChooser.showOpenDialog(this);
+            File file = fileChooser.getSelectedFile();
+            if (file != null) {
+                estimacion = PFHelper.loadEstimacion(file);
+                estimacion.setActualizable(this);
+                actualizar();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuItemAbrirActionPerformed
+
+    private void menuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGuardarActionPerformed
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("CalcPF", "cfp");
+            fileChooser.setFileFilter(filter);
+            fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+            fileChooser.showOpenDialog(this);
+            File file = fileChooser.getSelectedFile();
+            if (file != null) {
+                if (!file.getName().endsWith("cfp")) {
+                    file = new File(file.toString() + ".cfp");
+                }
+                PFHelper.saveEstimacion(estimacion, file);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuItemGuardarActionPerformed
+
     private void menuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCerrarActionPerformed
         estimacion = new Estimacion();
         estimacion.setActualizable(this);
@@ -226,11 +288,13 @@ public final class VentanaPrincipal extends javax.swing.JFrame implements Actual
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuElementosFuncionales;
     private javax.swing.JMenu menuFactorCorreccion;
+    private javax.swing.JMenuItem menuItemAbrir;
     private javax.swing.JMenuItem menuItemCaracteristicas;
     private javax.swing.JMenuItem menuItemCategoria;
     private javax.swing.JMenuItem menuItemCerrar;
     private javax.swing.JMenuItem menuItemConfigurar;
     private javax.swing.JMenuItem menuItemEstimacion;
+    private javax.swing.JMenuItem menuItemGuardar;
     private javax.swing.JMenuItem menuItemListaElementos;
     private javax.swing.JMenuItem menuItemPFA;
     private javax.swing.JMenuItem menuItemPFNA;
