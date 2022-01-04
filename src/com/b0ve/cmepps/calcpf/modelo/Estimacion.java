@@ -23,6 +23,7 @@ public class Estimacion implements Serializable {
         {FLE, Stream.of(new Object[][]{{SIMPLE, 5}, {MEDIA, 7}, {COMPLEJA, 10}}).collect(Collectors.toMap(data -> (Complejidad) data[0], data -> (Integer) data[1]))}
     }).collect(Collectors.toMap(data -> (TipoElemento) data[0], data -> (Map<Complejidad, Integer>) data[1]));
 
+    private String nombre;
     private double costeTrabajadorPorHora;
     private transient Actualizable actualizable;
     private final SerializableObservableListWrapper<ElementoFuncional> elementosFuncionales;
@@ -30,9 +31,17 @@ public class Estimacion implements Serializable {
     private final ISBSG isbsg;
 
     public Estimacion() {
+        nombre = "Sin título";
         elementosFuncionales = new SerializableObservableListWrapper<>();
         tablaInfluencias = new TablaInfluencias();
         isbsg = new ISBSG();
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+        if (actualizable != null) {
+            actualizable.actualizar();
+        }
     }
 
     public void setCosteTrabajadorPorHora(double costeTrabajadorPorHora) {
@@ -40,6 +49,10 @@ public class Estimacion implements Serializable {
         if (actualizable != null) {
             actualizable.actualizar();
         }
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public double getCosteTrabajadorPorHora() {
@@ -111,7 +124,7 @@ public class Estimacion implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("<html><h2>CalcPF</h2><h3>PFNA %d</h3><h3>FA %.2f</h3><h3>PFA %.2f</h3><h3>Esfuerzo %.2f horas</h3><h3>Duración %.2f horas</h3></html>", getPFNA(), getFA(), getPFA(), getEsfuerzo(), getDuracion() * 20D * 8D);
+        return String.format("<html><h2>%s</h2><h3>PFNA %d</h3><h3>FA %.2f</h3><h3>PFA %.2f</h3><h3>Esfuerzo %.2f horas</h3><h3>Duración %.2f horas</h3></html>", nombre, getPFNA(), getFA(), getPFA(), getEsfuerzo(), getDuracion() * 20D * 8D);
     }
 
 }
